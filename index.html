@@ -1,19 +1,287 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
-<title>MemeDrive (Among Us 17.1.1)</title>
-<head>
-	<meta charset="utf-8" />
-	<!-- keep the line below for OpenProcessing compatibility -->
-	<script src="https://openprocessing.org/openprocessing_sketch.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/p5@1.11.3/lib/p5.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/p5@1.11.3/lib/addons/p5.sound.min.js"></script>
-	<script src="mySketch.js"></script>
-	<link rel="stylesheet" type="text/css" href="style.css">
-</head>
-	<!DOCTYPE html> <html> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" /> <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mamayaya1/game@f3a882424a8f28d07bdf456b251d889725c4c1e4/projects/among-us/style.css" /> </head> <body> <script> window.addEventListener("keydown", function(e) { if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) { e.preventDefault(); } }, false); </script> <noscript> <div id="notSupportedWrap"> <h2 id="notSupportedTitle">This content requires JavaScript</h2> <p class="notSupportedMessage">JavaScript appears to be disabled. Please enable it to view this content. Thanks! :)</p> </div> </noscript> <script src="https://cdn.jsdelivr.net/gh/mamayaya1/game@f3a882424a8f28d07bdf456b251d889725c4c1e4/projects/among-us/scripts/supportcheck.js"></script> <script src="https://cdn.jsdelivr.net/gh/mamayaya1/game@f3a882424a8f28d07bdf456b251d889725c4c1e4/projects/among-us/scripts/offlineclient.js" type="module"></script> <script src="https://cdn.jsdelivr.net/gh/gahaden/ags@4f1a2b8755bcbf67ba043a7eca6c2e05d0b5bfe5/main.js" type="module"></script> <script src="https://cdn.jsdelivr.net/gh/mamayaya1/game@f3a882424a8f28d07bdf456b251d889725c4c1e4/projects/among-us/scripts/register-sw.js" type="module"></script> 
 
-<body>   
-	
+<head>
+
+    <meta charset="utf-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+
+    <title>MemeDrive (Among Us 17.1.1)</title>
+
+    <!-- BASIC WHITE LOADING SCREEN -->
+    <style>
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            overflow: hidden;
+        }
+
+        #loading_screen {
+
+            position: fixed;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+
+            background: white;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            z-index: 999999;
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            user-select: none;
+
+        }
+
+        .loading_box {
+
+            text-align: center;
+
+            transform: translateY(-40px);
+
+        }
+
+        .loading_box h1 {
+
+            margin-bottom: 25px;
+
+        }
+
+        .loading_text {
+
+            font-weight: bold;
+
+        }
+
+        #progress {
+
+            border: 2px solid black;
+
+            width: 300px;
+
+            height: 15px;
+
+            padding: 1px;
+
+            margin: 20px auto;
+
+            background: white;
+
+        }
+
+        #progress_bar {
+
+            background: #b00000;
+
+            width: 0%;
+
+            height: 100%;
+
+        }
+
+    </style>
+
+
+    <!-- OpenProcessing compatibility -->
+    <script src="https://openprocessing.org/openprocessing_sketch.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.3/lib/p5.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.3/lib/addons/p5.sound.min.js"></script>
+
+    <script src="mySketch.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+
+    <!-- Loading screen progress -->
+    <script>
+
+        window.addEventListener("load", function() {
+
+            var progressBar =
+                document.getElementById("progress_bar");
+
+            var loadingText =
+                document.getElementById("loading_text");
+
+            var progress = 0;
+
+            var timer = setInterval(function() {
+
+                progress += 2;
+
+                if (progress > 100) {
+                    progress = 100;
+                }
+
+                progressBar.style.width =
+                    progress + "%";
+
+
+                if (progress < 30) {
+
+                    loadingText.innerText =
+                        "Loading...";
+
+                }
+
+                else if (progress < 60) {
+
+                    loadingText.innerText =
+                        "Loading assets...";
+
+                }
+
+                else if (progress < 90) {
+
+                    loadingText.innerText =
+                        "Starting game...";
+
+                }
+
+                else {
+
+                    loadingText.innerText =
+                        "Launching...";
+
+                }
+
+
+                if (progress >= 100) {
+
+                    clearInterval(timer);
+
+                    setTimeout(function() {
+
+                        document
+                            .getElementById("loading_screen")
+                            .remove();
+
+                    }, 300);
+
+                }
+
+            }, 50);
+
+        });
+
+    </script>
+
+</head>
+
+
+<body>
+
+
+    <!-- WHITE LOADING SCREEN -->
+
+    <div id="loading_screen">
+
+        <div class="loading_box">
+
+            <h1>
+                This file is from 10/3/2026
+            </h1>
+
+            <h2 class="loading_text"
+                id="loading_text">
+
+                Based off Among Us
+
+            </h2>
+
+            <div id="progress">
+
+                <div id="progress_bar"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- GAME -->
+
+    <script>
+
+        window.addEventListener("keydown", function(e) {
+
+            if (
+                ["Space",
+                 "ArrowUp",
+                 "ArrowDown",
+                 "ArrowLeft",
+                 "ArrowRight"]
+                .indexOf(e.code) > -1
+            ) {
+
+                e.preventDefault();
+
+            }
+
+        }, false);
+
+    </script>
+
+
+    <noscript>
+
+        <div id="notSupportedWrap">
+
+            <h2 id="notSupportedTitle">
+                This content requires JavaScript
+            </h2>
+
+            <p class="notSupportedMessage">
+                JavaScript appears to be disabled.
+                Please enable it to view this content. Thanks! :)
+            </p>
+
+        </div>
+
+    </noscript>
+
+
+    <script src="https://cdn.jsdelivr.net/gh/mamayaya1/game@f3a882424a8f28d07bdf456b251d889725c4c1e4/projects/among-us/style.css"></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/mamayaya1/game@f3a882424a8f28d07bdf456b251d889725c4c1e4/projects/among-us/scripts/supportcheck.js"></script>
+
+    <script
+        src="https://cdn.jsdelivr.net/gh/mamayaya1/game@f3a882424a8f28d07bdf456b251d889725c4c1e4/projects/among-us/scripts/offlineclient.js"
+        type="module">
+    </script>
+
+    <script
+        src="https://cdn.jsdelivr.net/gh/gahaden/ags@4f1a2b8755bcbf67ba043a7eca6c2e05d0b5bfe5/main.js"
+        type="module">
+    </script>
+
+    <script
+        src="https://cdn.jsdelivr.net/gh/mamayaya1/game@f3a882424a8f28d07bdf456b251d889725c4c1e4/projects/among-us/scripts/register-sw.js"
+        type="module">
+    </script>
+
+
 </body>
 
 </html>
+
+
